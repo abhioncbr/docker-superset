@@ -2,11 +2,5 @@ local
 target
 project/target
 project/project/target
-etl_feed/target
 .idea
 .DS_Store
-etl_feed/.DS_Store
-etl_feed/etl_job_xml/.DS_Store
-etl_feed/src/.DS_Store
-etl_feed/src/main/.DS_Store
-etl_feed/src/main/resources/.DS_Store
