@@ -1,14 +1,22 @@
 version: 2
 jobs:
   build:
-    machine: true
     working_directory: ~/docker-superset
+    docker:
+      - image: docker:17.05.0-ce-git
 
     steps:
+      - checkout
+      - setup_remote_docker:
+         version: 17.05.0-ce
+
+      - run:
+         name: list files
+         command: ls -lsrt ~/docker-superset
 
       - run:
          name: Build Docker image
-         command: docker build -t abhioncbr/docker-superset:0.29.rc4 -f ./docker-files/DockerFile .
+         command: docker build -t abhioncbr/docker-superset:0.29.rc4 -f ~/docker-superset/docker-files/DockerFile .
 
       - run:
           name: Push to DockerHub
