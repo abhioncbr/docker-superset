@@ -60,8 +60,8 @@ ENV PATH=/home/superset/bin:$PATH \
 # Install superset python packages
 # RUN pip install --install-option="--prefix=$SUPERSET_HOME" superset==$SUPERSET_VERSION
 
-COPY script/entrypoint.sh $SUPERSET_HOME
-RUN chmod +x ${SUPERSET_HOME}entrypoint.sh
+COPY script/docker-entrypoint.sh $SUPERSET_HOME
+RUN chmod +x ${SUPERSET_HOME}docker-entrypoint.sh
 RUN ln -s ${SUPERSET_HOME}docker-entrypoint.sh /entrypoint.sh # backwards compat
 
 RUN chown -R superset:superset $SUPERSET_HOME
@@ -72,6 +72,6 @@ RUN cd superset/assets && yarn
 RUN cd superset/assets && npm run build
 
 HEALTHCHECK CMD ["curl", "-f", "http://localhost:8088/health"]
-ENTRYPOINT ["./docker-entrypoint.sh"]
+ENTRYPOINT ["docker-entrypoint.sh"]
 EXPOSE 8088 5555
 
