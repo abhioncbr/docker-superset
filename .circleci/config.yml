@@ -16,7 +16,7 @@ jobs:
 
       - run:
          name: Build Docker image
-         command: docker build -t abhioncbr/docker-superset:0.29.rc4 -f ~/docker-superset/docker-files/DockerFile .
+         command: docker build -t abhioncbr/docker-superset:0.29.rc4 -f ~/docker-superset/docker-files/Dockerfile .
 
       - run:
           name: Push to DockerHub
