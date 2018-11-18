@@ -1,7 +1,8 @@
-# VERSION 1.0 (apache-superset version:0.28.1)
-# AUTHOR: Abhishek Sharma
+# VERSION 1.0 (apache-superset version:0.29.rc4)
+# AUTHOR: Abhishek Sharma<abhioncbr@yahoo.com>
 # DESCRIPTION: docker apache superset container
 # BUILD: docker build --rm -t docker-apache-superset:0.28.1 -f docker-files/DockerFile .
+# Modified/revamped version of the https://github.com/apache/incubator-superset/blob/master/contrib/docker/Dockerfile
 
 FROM python:3.6
 MAINTAINER Abhishek Sharma <abhioncbr@yahoo.com>
@@ -43,6 +44,7 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -; \
 
 WORKDIR $SUPERSET_HOME
 
+# Download & install superset 0.29.rc4 version
 RUN wget -O superset.tar.gz $SUPERSET_DOWNLOAD_URL
 RUN tar -xzf superset.tar.gz -C $SUPERSET_HOME --strip-components=1 && rm superset.tar.gz
 
