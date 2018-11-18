@@ -48,13 +48,13 @@ WORKDIR $SUPERSET_HOME
 RUN wget -O superset.tar.gz $SUPERSET_DOWNLOAD_URL
 RUN tar -xzf superset.tar.gz -C $SUPERSET_HOME --strip-components=1 && rm superset.tar.gz
 
-RUN mkdir -p /home/work/.cache
+RUN mkdir -p /home/superset/.cache
 RUN pip install --upgrade setuptools pip
 RUN pip install -r requirements.txt
 RUN pip install -r requirements-dev.txt
 RUN pip install -e .
 
-ENV PATH=/home/work/incubator-superset/superset/bin:$PATH \
+ENV PATH=/home/superset/bin:$PATH \
     PYTHONPATH=./superset/:$PYTHONPATH
 
 # Install superset python packages
@@ -62,7 +62,7 @@ ENV PATH=/home/work/incubator-superset/superset/bin:$PATH \
 
 COPY script/entrypoint.sh $SUPERSET_HOME
 RUN chmod +x ${SUPERSET_HOME}entrypoint.sh
-RUN ln -s ${SUPERSET_HOME}entrypoint.sh /entrypoint.sh # backwards compat
+RUN ln -s ${SUPERSET_HOME}docker-entrypoint.sh /entrypoint.sh # backwards compat
 
 RUN chown -R superset:superset $SUPERSET_HOME
 
@@ -72,6 +72,6 @@ RUN cd superset/assets && yarn
 RUN cd superset/assets && npm run build
 
 HEALTHCHECK CMD ["curl", "-f", "http://localhost:8088/health"]
-ENTRYPOINT ["./entrypoint.sh"]
+ENTRYPOINT ["./docker-entrypoint.sh"]
 EXPOSE 8088 5555
 

@@ -5,20 +5,22 @@
 # DESCRIPTION: apache superset docker container entrypoint file
 # Modified/Revamped version of the https://github.com/apache/incubator-superset/blob/master/contrib/docker/docker-init.sh
 
-set -exo pipefail
+set -eo pipefail
 
 # common function to check if string is null or empty
 is_empty_string () {
+   PARAM=$1
    local output=true
    if [ ! -z "$PARAM" -a "$PARAM" != " " ]; then
       local output=false
+      echo here
    fi
 }
 
 # function to initialize apache-superset
 initialize_superset () {
     USER_COUNT=$(fabmanager list-users --app superset | awk '/email/ {print}' | wc -l)
-    if (( "$?" ==  0 )) && (( $USER_COUNT == 0 )) ; then
+    if [ "$?" ==  0 ] && [ $USER_COUNT == 0 ]; then
         # Create an admin user (you will be prompted to set username, first and last name before setting a password)
         fabmanager create-admin --app superset --username admin --firstname apache --lastname superset --email apache-superset@fab.com --password admin
 

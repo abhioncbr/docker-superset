@@ -16,15 +16,16 @@ services:
     image: mysql:5
     restart: always
     environment:
-      MYSQL_DB: superset
-      MYSQL_PASSWORD: superset
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: superset
+      MYSQL_PASS: superset
       MYSQL_USER: superset
     ports:
-      - 3306:3306
+      - 33060:33060
     volumes:
-      - mysql:/var/lib/mysql/data
+      - mysql:/var/lib/mysql
   superset:
-    image: apache/incubator-superset
+    image: abhioncbr/docker-superset:0.29.rc4
     restart: always
     environment:
       MYSQL_DB: superset
@@ -34,17 +35,13 @@ services:
       MYSQL_PORT: 3306
       REDIS_HOST: redis
       REDIS_PORT: 6379
-      "SUPERSET_ENV=${SUPERSET_ENV}"
-      "NODE_TYPE=${NODE_TYPE}"
+      SUPERSET_ENV: ${SUPERSET_ENV}
     ports:
       - 8088:8088
       - 5555:5555
     depends_on:
       - mysql
       - redis
-    volumes:
-      - .:/home/work/incubator-superset
-      - superset-node-modules:/home/superset/superset/assets/node_modules
 volumes:
   mysql:
     external: false
