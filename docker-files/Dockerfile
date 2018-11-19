@@ -54,15 +54,15 @@ RUN pip install -r requirements.txt
 RUN pip install -r requirements-dev.txt
 RUN pip install -e .
 
-ENV PATH=/home/superset/bin:$PATH \
+ENV PATH=/home/superset/superset/bin:$PATH \
     PYTHONPATH=./superset/:$PYTHONPATH
 
 # Install superset python packages
 # RUN pip install --install-option="--prefix=$SUPERSET_HOME" superset==$SUPERSET_VERSION
 
-COPY script/docker-entrypoint.sh $SUPERSET_HOME
-RUN chmod +x ${SUPERSET_HOME}docker-entrypoint.sh
-RUN ln -s ${SUPERSET_HOME}docker-entrypoint.sh /entrypoint.sh # backwards compat
+COPY script/docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+RUN ln -s /usr/local/bin/docker-entrypoint.sh /entrypoint.sh # backwards compat
 
 RUN chown -R superset:superset $SUPERSET_HOME
 
