@@ -1,7 +1,8 @@
-# VERSION 1.0 (apache-superset version:0.28.1)
-# AUTHOR: Abhishek Sharma
+# VERSION 1.0 (apache-superset version:0.29.rc4)
+# AUTHOR: Abhishek Sharma<abhioncbr@yahoo.com>
 # DESCRIPTION: docker apache superset container
 # BUILD: docker build --rm -t docker-apache-superset:0.28.1 -f docker-files/DockerFile .
+# Modified/revamped version of the https://github.com/apache/incubator-superset/blob/master/contrib/docker/Dockerfile
 
 FROM python:3.6
 MAINTAINER Abhishek Sharma <abhioncbr@yahoo.com>
@@ -43,24 +44,25 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -; \
 
 WORKDIR $SUPERSET_HOME
 
+# Download & install superset 0.29.rc4 version
 RUN wget -O superset.tar.gz $SUPERSET_DOWNLOAD_URL
 RUN tar -xzf superset.tar.gz -C $SUPERSET_HOME --strip-components=1 && rm superset.tar.gz
 
-RUN mkdir -p /home/work/.cache
+RUN mkdir -p /home/superset/.cache
 RUN pip install --upgrade setuptools pip
 RUN pip install -r requirements.txt
 RUN pip install -r requirements-dev.txt
 RUN pip install -e .
 
-ENV PATH=/home/work/incubator-superset/superset/bin:$PATH \
+ENV PATH=/home/superset/superset/bin:$PATH \
     PYTHONPATH=./superset/:$PYTHONPATH
 
 # Install superset python packages
 # RUN pip install --install-option="--prefix=$SUPERSET_HOME" superset==$SUPERSET_VERSION
 
-COPY script/entrypoint.sh $SUPERSET_HOME
-RUN chmod +x ${SUPERSET_HOME}entrypoint.sh
-RUN ln -s ${SUPERSET_HOME}entrypoint.sh /entrypoint.sh # backwards compat
+COPY script/docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+RUN ln -s /usr/local/bin/docker-entrypoint.sh /entrypoint.sh # backwards compat
 
 RUN chown -R superset:superset $SUPERSET_HOME
 
@@ -70,6 +72,6 @@ RUN cd superset/assets && yarn
 RUN cd superset/assets && npm run build
 
 HEALTHCHECK CMD ["curl", "-f", "http://localhost:8088/health"]
-ENTRYPOINT ["./entrypoint.sh"]
+ENTRYPOINT ["docker-entrypoint.sh"]
 EXPOSE 8088 5555
 

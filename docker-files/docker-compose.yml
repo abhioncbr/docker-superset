@@ -1,0 +1,51 @@
+# VERSION 1.0 (apache-superset version:0.29.rc4)
+# AUTHOR: Abhishek Sharma<abhioncbr@yahoo.com>
+# DESCRIPTION: apache superset docker-compose.yml
+# Modified/revamped version of the https://github.com/apache/incubator-superset/blob/master/contrib/docker/docker-compose.yml
+
+version: '3'
+services:
+  redis:
+    image: redis:3.2
+    restart: always
+    ports:
+      - 6379:6379
+    volumes:
+      - redis:/data
+  mysql:
+    image: mysql:5
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: superset
+      MYSQL_PASS: superset
+      MYSQL_USER: superset
+    ports:
+      - 33060:33060
+    volumes:
+      - mysql:/var/lib/mysql
+  superset:
+    image: abhioncbr/docker-superset:0.29.rc4
+    restart: always
+    environment:
+      MYSQL_DB: superset
+      MYSQL_USER: superset
+      MYSQL_PASSWORD: superset
+      MYSQL_HOST: mysql
+      MYSQL_PORT: 3306
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      SUPERSET_ENV: ${SUPERSET_ENV}
+    ports:
+      - 8088:8088
+      - 5555:5555
+    depends_on:
+      - mysql
+      - redis
+volumes:
+  mysql:
+    external: false
+  redis:
+    external: false
+  superset-node-modules:
+    external: false
