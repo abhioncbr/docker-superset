@@ -28,11 +28,11 @@ services:
     image: abhioncbr/docker-superset:0.29.rc4
     restart: always
     environment:
-      MYSQL_DB: superset
       MYSQL_USER: superset
-      MYSQL_PASSWORD: superset
+      MYSQL_PASS: superset
+      MYSQL_DATABASE: superset
       MYSQL_HOST: mysql
-      MYSQL_PORT: 3306
+      MYSQL_PORT: 33060
       REDIS_HOST: redis
       REDIS_PORT: 6379
       SUPERSET_ENV: ${SUPERSET_ENV}

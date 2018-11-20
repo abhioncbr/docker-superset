@@ -64,6 +64,9 @@ COPY script/docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 RUN ln -s /usr/local/bin/docker-entrypoint.sh /entrypoint.sh # backwards compat
 
+# copy superset_condfig.py file
+COPY config/superset_config.py $SUPERSET_HOME/superset/
+
 RUN chown -R superset:superset $SUPERSET_HOME
 
 USER superset

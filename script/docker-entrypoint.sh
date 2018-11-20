@@ -45,8 +45,16 @@ if is_empty_string $SUPERSET_ENV; then
     SUPERSET_ENV=${args[0]}
     if is_empty_string $SUPERSET_ENV; then
         NODE_TYPE=${args[1]}
+
         DB_URL==${args[2]}
+        export DB_URL=$DB_URL
+        echo "export DB_URL="$DB_URL>>~/.bashrc
+        echo "DB_URL="$DB_URL>>~/.profile
+
         REDIS_URL==${args[3]}
+        export REDIS_URL=$REDIS_URL
+        echo "export REDIS_URL="$REDIS_URL>>~/.bashrc
+        echo "REDIS_URL="$REDIS_URL>>~/.profile
     fi
 fi
 
