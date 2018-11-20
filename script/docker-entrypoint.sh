@@ -13,7 +13,6 @@ is_empty_string () {
    local output=true
    if [ ! -z "$PARAM" -a "$PARAM" != " " ]; then
       local output=false
-      echo here
    fi
 }
 
@@ -33,38 +32,43 @@ initialize_superset () {
         # Create default roles and permissions
         superset init
 
-        echo apache-superset is initialized. Happy superset exploration!
+        echo Initialized Apache-Superset. Happy Superset Exploration!
     else
-        echo apache-superset is already initialized.
+        echo Apache-Superset Already Initialized.
     fi
 }
 
 # start of the script
 if is_empty_string $SUPERSET_ENV; then
     args=("$@")
+    echo Provided Script Arguments: $@
     SUPERSET_ENV=${args[0]}
     if is_empty_string $SUPERSET_ENV; then
         NODE_TYPE=${args[1]}
 
-        DB_URL==${args[2]}
+        DB_URL=${args[2]}
         export DB_URL=$DB_URL
         echo "export DB_URL="$DB_URL>>~/.bashrc
         echo "DB_URL="$DB_URL>>~/.profile
+        echo Environment Variable Exported: DB_URL: $DB_URL
 
-        REDIS_URL==${args[3]}
+        REDIS_URL=${args[3]}
         export REDIS_URL=$REDIS_URL
         echo "export REDIS_URL="$REDIS_URL>>~/.bashrc
         echo "REDIS_URL="$REDIS_URL>>~/.profile
+        echo Environment Variable Exported: REDIS_URL: $REDIS_URL
     fi
 fi
 
 # initializing the superset[should only be run for the first time of environment setup.]
 initialize_superset
 
+echo Container deployment type: $SUPERSET_ENV
 if [ "$SUPERSET_ENV" == "local" ]; then
     # Start superset worker for SQL Lab
     celery worker --app=superset.sql_lab:celery_app --pool=gevent -Ofair -n worker1 &
     celery flower --app=superset.sql_lab:celery_app &
+    echo Started Celery worker & Flower UI.
 
     # Start the dev web server
     flask run -p 8088 --with-threads --reload --debugger --host=0.0.0.0
@@ -73,6 +77,7 @@ elif [ "$SUPERSET_ENV" == "prod" ]; then
     celery worker --app=superset.sql_lab:celery_app --pool=gevent -Ofair -nworker1 &
     celery worker --app=superset.sql_lab:celery_app --pool=gevent -Ofair -nworker2 &
     celery flower --app=superset.sql_lab:celery_app &
+    echo Started Celery workers[worker1, worker2] & Flower UI.
 
     # Start the prod web server
     gunicorn -w 10 -k gevent --timeout 120 -b  0.0.0.0:8088 --limit-request-line 0 --limit-request-field_size 0 superset:app
