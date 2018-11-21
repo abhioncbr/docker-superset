@@ -10,10 +10,11 @@ set -eo pipefail
 # common function to check if string is null or empty
 is_empty_string () {
    PARAM=$1
-   local output=true
+   output=true
    if [ ! -z "$PARAM" -a "$PARAM" != " " ]; then
-      local output=false
+      output=false
    fi
+   echo $output
 }
 
 # function to initialize apache-superset
@@ -39,11 +40,12 @@ initialize_superset () {
 }
 
 # start of the script
-if is_empty_string $SUPERSET_ENV; then
+echo Environment Variable: SUPERSET_ENV: $SUPERSET_ENV
+if $(is_empty_string $SUPERSET_ENV); then
     args=("$@")
     echo Provided Script Arguments: $@
     SUPERSET_ENV=${args[0]}
-    if is_empty_string $SUPERSET_ENV; then
+    if $(is_empty_string $SUPERSET_ENV); then
         NODE_TYPE=${args[1]}
 
         DB_URL=${args[2]}
@@ -61,6 +63,7 @@ if is_empty_string $SUPERSET_ENV; then
 fi
 
 # initializing the superset[should only be run for the first time of environment setup.]
+echo Starting Initialization[if needed]
 initialize_superset
 
 echo Container deployment type: $SUPERSET_ENV
