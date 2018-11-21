@@ -3,4 +3,5 @@ target
 project/target
 project/project/target
 .idea
+venv
 .DS_Store
