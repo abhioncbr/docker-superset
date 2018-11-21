@@ -19,6 +19,7 @@ services:
       MYSQL_USER: superset
       MYSQL_PASSWORD: superset
       MYSQL_DATABASE: superset
+      MYSQL_ROOT_PASSWORD: root
     ports:
       - 3306:3306
     volumes:

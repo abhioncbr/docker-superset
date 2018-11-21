@@ -59,7 +59,19 @@ if $(is_empty_string $SUPERSET_ENV); then
         echo "export REDIS_URL="$REDIS_URL>>~/.bashrc
         echo "REDIS_URL="$REDIS_URL>>~/.profile
         echo Environment Variable Exported: REDIS_URL: $REDIS_URL
+
+        INVOCATION_TYPE="RUN"
+        export INVOCATION_TYPE=$INVOCATION_TYPE
+        echo "export INVOCATION_TYPE="$INVOCATION_TYPE>>~/.bashrc
+        echo "REDIS_URL="$INVOCATION_TYPE>>~/.profile
+        echo Environment Variable Exported: INVOCATION_TYPE: $INVOCATION_TYPE
     fi
+else
+     INVOCATION_TYPE="COMPOSE"
+     export INVOCATION_TYPE=$INVOCATION_TYPE
+     echo "export INVOCATION_TYPE="$INVOCATION_TYPE>>~/.bashrc
+     echo "REDIS_URL="$INVOCATION_TYPE>>~/.profile
+     echo Environment Variable Exported: INVOCATION_TYPE: $INVOCATION_TYPE
 fi
 
 # initializing the superset[should only be run for the first time of environment setup.]
