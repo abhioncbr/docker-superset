@@ -14,8 +14,8 @@ def get_env_variable(var_name, default=None):
                         .format(var_name)
             raise EnvironmentError(error_msg)
 
-
-if get_env_variable('INVOCATION_TYPE') is 'COMPOSE':
+invocation_type = get_env_variable('INVOCATION_TYPE')
+if invocation_type == 'COMPOSE':
     MYSQL_USER = get_env_variable('MYSQL_USER')
     MYSQL_PASS = get_env_variable('MYSQL_PASS')
     MYSQL_HOST = get_env_variable('MYSQL_HOST')
@@ -31,7 +31,7 @@ if get_env_variable('INVOCATION_TYPE') is 'COMPOSE':
 else:
     SQLALCHEMY_DATABASE_URI = get_env_variable('DB_URL')
 
-if not get_env_variable('INVOCATION_TYPE') is 'COMPOSE':
+if invocation_type == 'COMPOSE':
     REDIS_HOST = get_env_variable('REDIS_HOST')
     REDIS_PORT = get_env_variable('REDIS_PORT')
 else:
