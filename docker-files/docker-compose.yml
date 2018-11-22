@@ -35,7 +35,7 @@ services:
       MYSQL_PORT: 3306
       REDIS_HOST: redis
       REDIS_PORT: 6379
-      SUPERSET_ENV: local
+      SUPERSET_ENV: $SUPERSET_ENV
     ports:
       - 8088:8088
       - 5555:5555
