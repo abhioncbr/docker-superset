@@ -21,12 +21,17 @@ This is a repository for building [Docker](https://www.docker.com/) container of
 
 ## How to run
 * General commands -
-    * starting superset image as a `superset` container in a local mode-
+    * first pull a docker-superset image from [docker-hub](https://hub.docker.com/r/abhioncbr/docker-superset/)
+        ```shell
+        docker pull abhioncbr/docker-superset:<tag>
+        ```
+        
+    * starting a superset image as a `superset` container in a local mode using `docker-compose`:
         ```shell
         cd docker-files/ && SUPERSET_ENV=local docker-compose up -d
         ```
         
-    * starting superset image as a `superset` container in a prod mode-
+    * starting a superset image as a `superset` container in a prod mode using `docker-compose`:
         ```shell
         cd docker-files/ && SUPERSET_ENV=prod docker-compose up -d
         ```
