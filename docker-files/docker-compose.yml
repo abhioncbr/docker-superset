@@ -42,6 +42,8 @@ services:
     depends_on:
       - mysql
       - redis
+    volumes:
+      - ../config/:/home/superset/config/
 volumes:
   mysql:
     external: false
