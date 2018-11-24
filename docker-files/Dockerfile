@@ -49,13 +49,14 @@ RUN wget -O superset.tar.gz $SUPERSET_DOWNLOAD_URL
 RUN tar -xzf superset.tar.gz -C $SUPERSET_HOME --strip-components=1 && rm superset.tar.gz
 
 RUN mkdir -p /home/superset/.cache
+RUN mkdir -p /home/superset/config
 RUN pip install --upgrade setuptools pip
 RUN pip install -r requirements.txt
 RUN pip install -r requirements-dev.txt
 RUN pip install -e .
 
-ENV PATH=/home/superset/superset/bin:$PATH \
-    PYTHONPATH=./superset/:$PYTHONPATH
+ENV PATH=${SUPERSET_HOME}/superset/bin:$PATH \
+    PYTHONPATH=${SUPERSET_HOME}superset/:${SUPERSET_HOME}config/:$PYTHONPATH
 
 # Install superset python packages
 # RUN pip install --install-option="--prefix=$SUPERSET_HOME" superset==$SUPERSET_VERSION
@@ -65,7 +66,7 @@ RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 RUN ln -s /usr/local/bin/docker-entrypoint.sh /entrypoint.sh # backwards compat
 
 # copy superset_condfig.py file
-COPY config/superset_config.py $SUPERSET_HOME/superset/
+COPY config/superset_config.py ${SUPERSET_HOME}config/
 
 RUN chown -R superset:superset $SUPERSET_HOME
 
