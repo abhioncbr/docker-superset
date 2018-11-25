@@ -19,6 +19,26 @@ This is a repository for building [Docker](https://www.docker.com/) container of
 - superset portal port: 8088
 - superset celery flower: 5555
 
+## Silent features of the docker image
+- multiple way to start container i.e either by using `docker-compose` or by using `docker run`
+- superset all components i.e web application, celery worker, celery flower ui can be run in a same container or in different containers.
+- container first run sets required database along with examples and fabmanager user account withe credentials `username: admin & password: admin`.
+- superset config file i.e [superset_config.py](config/superset_config.py) should be mounted to the container. No need to rebuild image for changing configurations. 
+- default configuration uses mysql as database and redis as a cache & celery broker.
+- starting container using `docker-compose` will start 3 containers. `mysql5.7` as database, `redis3.4` as a cache & celery broker and superset container.
+    * expects multiple environment variables, which are defined in [docker-compose.yml](docker-files/docker-compose.yml) file. Among them, `SUPERSET_ENV` should be provided while starting the container.
+    * permissible valie of `SUPERSET_ENV` can be either `local` or `prod`.
+    * in `local` mode one celery worker and superset flask based superset web application runs.
+    * in `prod` mode two celery workers and gunicorn based superset web application runs.
+ - starting container using `docker run` can be a used for complete distributed setup, requires database & redis url for startup.
+    * single or multiple server(using load balancer) container can be spawned. In server, gunicorn based superset web application runs. 
+    * multiple celery workers container running on same or different machines. In worker, celery worker & flower ui runs. 
+
+## How to build image
+   * build image using `docker build` command
+        ```shell
+        docker build -t abhioncbr/docker-superset:<tag> -f ~/docker-superset/docker-files/Dockerfile .
+        ```
 ## How to run
 * General commands -
     * first pull a docker-superset image from [docker-hub](https://hub.docker.com/r/abhioncbr/docker-superset/)
@@ -35,3 +55,15 @@ This is a repository for building [Docker](https://www.docker.com/) container of
         ```shell
         cd docker-files/ && SUPERSET_ENV=prod docker-compose up -d
         ```
+
+    * starting a superset image as a `server` container using `docker run`:
+        ```shell
+        docker run -p 8088:8088 -v config:/home/superset/config/ abhioncbr/docker-superset:<tag> cluster server <db_url> <redis_url>
+        ```        
+    * starting a superset image as a `worker` container using `docker run`:
+        ```shell
+        docker run -p 5555:5555 -v config:/home/superset/config/ abhioncbr/docker-superset:<tag> cluster worker <db_url> 
+        <redis_url>
+        ```    
+       
+    [<img src="docker-superset_execution.png" alt="Superset">](docker-superset_execution.png)        

@@ -7,6 +7,32 @@
 
 set -eo pipefail
 
+# Color Code -- ANSI notation
+NC='\033[0m' # No Color
+RED='\033[0;31m'
+BLUE='\033[0;34m'
+GREEN='\033[0;32m'
+
+#
+help(){
+  echo
+  echo -e "###########################################################################################################################################################################"
+  echo -e "##****************************************************************** ${RED}Apache-Superset Docker Container.${NC} ******************************************************************##"
+  echo -e "##                                                                                                                                                                       ##"
+  echo -e "##**************************************************************** ${BLUE}Container can be started in two ways.${NC} ****************************************************************##"
+  echo -e "## 1) Using ${RED}'docker-compose'${NC}                                                                                                                                             ##"
+  echo -e "## First download apache-superset docker image from docker-hub using command ${GREEN}'docker pull abhioncbr/docker-superset:<tag>'${NC}                                               ##"
+  echo -e "## Start container using command ${GREEN}'cd docker-files/ && SUPERSET_ENV=<ENV> docker-compose up -d'${NC}, where ${BLUE}ENV${NC} can be ${GREEN}'prod'${NC} or ${GREEN}'local'${NC}                                       ##"
+  echo -e "##                                                                                                                                                                       ##"
+  echo -e "##***********************************************************************************************************************************************************************##"
+  echo -e "## 1) Using ${RED}'docker run'${NC}                                                                                                                                                 ##"
+  echo -e "## First download apache-superset docker image from docker-hub using command ${GREEN}'docker pull abhioncbr/docker-superset:<tag>'${NC}                                               ##"
+  echo -e "## Start ${BLUE}'server'${NC} container using command ${GREEN}'docker run -p 8088:8088 -v config:/home/superset/config/ abhioncbr/docker-superset:<tag> cluster server <db_url> <redis_url>'${NC} ##"
+  echo -e "## Start ${BLUE}'worker'${NC} container using command ${GREEN}'docker run -p 5555:5555 -v config:/home/superset/config/ abhioncbr/docker-superset:<tag> cluster worker <db_url> <redis_url>'${NC} ##"
+  echo -e "###########################################################################################################################################################################"
+  echo
+}
+
 # common function to check if string is null or empty
 is_empty_string () {
    PARAM=$1
@@ -44,8 +70,11 @@ echo Environment Variable: SUPERSET_ENV: $SUPERSET_ENV
 if $(is_empty_string $SUPERSET_ENV); then
     args=("$@")
     echo Provided Script Arguments: $@
-    SUPERSET_ENV=${args[0]}
-    if $(is_empty_string $SUPERSET_ENV); then
+    if [[ $# -ne 4 ]]; then
+        help
+        exit -1
+    else
+        SUPERSET_ENV=${args[0]}
         NODE_TYPE=${args[1]}
 
         DB_URL=${args[2]}
@@ -104,5 +133,6 @@ elif [ "$SUPERSET_ENV" == "cluster" ] && [ "$NODE_TYPE" == "server" ]; then
     # Start the prod web server
     gunicorn -w 10 -k gevent --timeout 120 -b  0.0.0.0:8088 --limit-request-line 0 --limit-request-field_size 0 superset:app
 else
-    superset --help
+    help
+    exit -1
 fi
