@@ -65,6 +65,5 @@ This is a repository for building [Docker](https://www.docker.com/) container of
         docker run -p 5555:5555 -v config:/home/superset/config/ abhioncbr/docker-superset:<tag> cluster worker <db_url> 
         <redis_url>
         ```    
-        
-* container entrypoint help -
-    [<img src="docker-superset_execution.png" alt="Superset" width="500">](docker-superset_execution.png)        
+       
+    [<img src="docker-superset_execution.png" alt="Superset">](docker-superset_execution.png)        
