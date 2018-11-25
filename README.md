@@ -35,9 +35,10 @@ This is a repository for building [Docker](https://www.docker.com/) container of
     * multiple celery workers container running on same or different machines. In worker, celery worker & flower ui runs. 
 
 ## How to build image
-    ```shell
-    docker build -t abhioncbr/docker-superset:<tag> -f ~/docker-superset/docker-files/Dockerfile .
-    ```
+   * build image using `docker build` command
+        ```shell
+        docker build -t abhioncbr/docker-superset:<tag> -f ~/docker-superset/docker-files/Dockerfile .
+        ```
 ## How to run
 * General commands -
     * first pull a docker-superset image from [docker-hub](https://hub.docker.com/r/abhioncbr/docker-superset/)
@@ -66,4 +67,4 @@ This is a repository for building [Docker](https://www.docker.com/) container of
         ```    
         
 * container entrypoint help -
-    *[<img alt="Superset" width="500">](docker-superset_execution.png)        
+    [<img src="docker-superset_execution.png" alt="Superset" width="500">](docker-superset_execution.png)        
