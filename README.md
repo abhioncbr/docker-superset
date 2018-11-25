@@ -11,7 +11,7 @@ This is a repository for building [Docker](https://www.docker.com/) container of
 ## Superset components stack
 - Enhanced/Modified version of the docker container of [apache-superset](https://github.com/apache/incubator-superset/tree/master/contrib/docker).
 - Superset version: Notation for representing version `X.YY.ZZzzz` which means either [0.29.rc4] or [0.28.0]
-- Backend database: Mysql
+- Backend database: mysql
 - SqlLabs query async mode: Celery
 - Task queue & query cache: Redis
 
