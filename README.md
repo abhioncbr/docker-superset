@@ -11,7 +11,7 @@ This is a repository for building [Docker](https://www.docker.com/) container of
 ## Superset components stack
 - Enhanced/Modified version of the docker container of [apache-superset](https://github.com/apache/incubator-superset/tree/master/contrib/docker).
 - Superset version: Notation for representing version `X.YY.ZZzzz` which means either [0.29.0rc4] or [0.28.0]
-- Backend database: mysql
+- Backend database: MySQL
 - SqlLabs query async mode: Celery
 - Task queue & query cache: Redis
 
@@ -20,21 +20,21 @@ This is a repository for building [Docker](https://www.docker.com/) container of
 - superset celery flower: 5555
 
 ## Silent features of the docker image
-- multiple way to start container i.e either by using `docker-compose` or by using `docker run`
-- superset all components i.e web application, celery worker, celery flower ui can be run in a same container or in different containers.
-- container first run sets required database along with examples and fabmanager user account withe credentials `username: admin & password: admin`.
+- multiple ways to start container i.e either by using `docker-compose` or by using `docker run`
+- superset all components i.e web application, celery worker, celery flower UI can be run in the same container or in different containers.
+- container first run sets required database along with examples and the fabmanager user account with credentials `username: admin & password: admin`.
 - superset config file i.e [superset_config.py](config/superset_config.py) should be mounted to the container. No need to rebuild image for changing configurations. 
-- default configuration uses mysql as database and redis as a cache & celery broker.
-- starting container using `docker-compose` will start 3 containers. `mysql5.7` as database, `redis3.4` as a cache & celery broker and superset container.
+- the default configuration uses MySQL as database and Redis as a cache & celery broker.
+- starting container using `docker-compose` will start 3 containers. `mysql5.7` as the database, `redis3.4` as a cache & celery broker and superset container.
     * expects multiple environment variables, which are defined in [docker-compose.yml](docker-files/docker-compose.yml) file. Among them, `SUPERSET_ENV` should be provided while starting the container.
-    * permissible valie of `SUPERSET_ENV` can be either `local` or `prod`.
-    * in `local` mode one celery worker and superset flask based superset web application runs.
-    * in `prod` mode two celery workers and gunicorn based superset web application runs.
- - starting container using `docker run` can be a used for complete distributed setup, requires database & redis url for startup.
-    * single or multiple server(using load balancer) container can be spawned. In server, gunicorn based superset web application runs. 
-    * multiple celery workers container running on same or different machines. In worker, celery worker & flower ui runs. 
+    * permissible value of `SUPERSET_ENV` can be either `local` or `prod`.
+    * in `local` mode one celery worker and superset flask-based superset web application run.
+    * in `prod` mode two celery workers and gunicorn based superset web application run.
+ - starting container using `docker run` can be a used for complete distributed setup, requires database & Redis URL for startup.
+    * single or multiple server(using load balancer) container can be spawned. In the server, gunicorn based superset web application runs. 
+    * multiple celery workers container running on same or different machines. In worker, celery worker & flower UI runs. 
 
-## How to build image
+## How to build the image
    * [DockerFile](docker-files/Dockerfile) uses `superset-version` as a `build-arg`, for example: `0.28.0` or `0.29.0rc4`
    * build image using `docker build` command
         ```shell
