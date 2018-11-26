@@ -10,7 +10,7 @@ This is a repository for building [Docker](https://www.docker.com/) container of
 
 ## Superset components stack
 - Enhanced/Modified version of the docker container of [apache-superset](https://github.com/apache/incubator-superset/tree/master/contrib/docker).
-- Superset version: Notation for representing version `X.YY.ZZzzz` which means either [0.29.rc4] or [0.28.0]
+- Superset version: Notation for representing version `X.YY.ZZzzz` which means either [0.29.0rc4] or [0.28.0]
 - Backend database: mysql
 - SqlLabs query async mode: Celery
 - Task queue & query cache: Redis
@@ -35,9 +35,10 @@ This is a repository for building [Docker](https://www.docker.com/) container of
     * multiple celery workers container running on same or different machines. In worker, celery worker & flower ui runs. 
 
 ## How to build image
+   * [DockerFile](docker-files/Dockerfile) uses `superset-version` as a `build-arg`, for example: `0.28.0` or `0.29.0rc4`
    * build image using `docker build` command
         ```shell
-        docker build -t abhioncbr/docker-superset:<tag> -f ~/docker-superset/docker-files/Dockerfile .
+        docker build -t abhioncbr/docker-superset:<tag> --build-arg SUPERSET_VERSION=<superset-version> -f ~/docker-superset/docker-files/Dockerfile .
         ```
 ## How to run
 * General commands -
