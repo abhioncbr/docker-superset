@@ -16,7 +16,7 @@ jobs:
 
       - run:
          name: Build Docker image
-         command: docker build -t abhioncbr/docker-superset:$SUPERSET_VERSION --build-arg superset_version=$SUPERSET_VERSION -f ~/docker-superset/docker-files/Dockerfile .
+         command: docker build -t abhioncbr/docker-superset:$SUPERSET_VERSION --build-arg SUPERSET_VERSION=$SUPERSET_VERSION -f ~/docker-superset/docker-files/Dockerfile .
 
       - run:
           name: Push to DockerHub
