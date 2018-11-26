@@ -7,8 +7,11 @@
 FROM python:3.6
 MAINTAINER Abhishek Sharma <abhioncbr@yahoo.com>
 
+# Build argument[version of apache-superset to be build: pass value while building image]
+ARG superset_version
+
 ENV SUPERSET_HOME /home/superset/
-ENV SUPERSET_DOWNLOAD_URL https://github.com/apache/incubator-superset/archive/0.29.0rc4.tar.gz
+ENV SUPERSET_DOWNLOAD_URL https://github.com/apache/incubator-superset/archive/${superset_version}.tar.gz
 
 # Add a normal superset group & user
 # Change group & user id as per your requirement.

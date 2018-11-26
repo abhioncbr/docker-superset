@@ -16,13 +16,13 @@ jobs:
 
       - run:
          name: Build Docker image
-         command: docker build -t abhioncbr/docker-superset:0.29.rc4 -f ~/docker-superset/docker-files/Dockerfile .
+         command: docker build -t abhioncbr/docker-superset:$SUPERSET_VERSION --build-arg superset_version=$SUPERSET_VERSION -f ~/docker-superset/docker-files/Dockerfile .
 
       - run:
           name: Push to DockerHub
           command: |
             docker login -u $DOCKERHUB_LOGIN -p $DOCKERHUB_PASSWORD
-            docker push abhioncbr/docker-superset:0.29.rc4
+            docker push abhioncbr/docker-superset:$SUPERSET_VERSION
 
 workflows:
   version: 2
