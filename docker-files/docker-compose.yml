@@ -25,7 +25,7 @@ services:
     volumes:
       - mysql:/var/lib/mysql
   superset:
-    image: abhioncbr/docker-superset:0.29.rc4
+    image: abhioncbr/docker-superset:$SUPERSET_VERSION
     restart: always
     environment:
       MYSQL_USER: superset
