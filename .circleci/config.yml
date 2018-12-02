@@ -1,4 +1,4 @@
-version: 2
+version: 2.0
 jobs:
   build:
     working_directory: ~/docker-superset
@@ -25,7 +25,7 @@ jobs:
             docker push abhioncbr/docker-superset:$SUPERSET_VERSION
 
 workflows:
-  version: 2
+  version: 2.0
   build-and-deploy:
     jobs:
       - build:
