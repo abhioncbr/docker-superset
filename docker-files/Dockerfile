@@ -16,23 +16,22 @@ ENV SUPERSET_DOWNLOAD_URL=https://github.com/apache/incubator-superset/archive/$
 # Add a normal superset group & user
 # Change group & user id as per your requirement.
 RUN groupadd -g 5006 superset
-RUN useradd --create-home --uid 5004 --gid 5006 --home ${SUPERSET_HOME} --shell /bin/bash superset
+RUN useradd --create-home --no-log-init --uid 5004 --gid 5006 --home ${SUPERSET_HOME} --shell /bin/bash superset
 
-# Environment variables
-ENV LANGUAGE=C.UTF-8 \
-    LANG=C.UTF-8 \
-    LC_ALL=C.UTF-8 \
-    LC_CTYPE=C.UTF-8 \
-    LC_MESSAGES=C.UTF-8
+# Configure environment
+ENV LANG=C.UTF-8 \
+    LC_ALL=C.UTF-8
 
-RUN apt-get update -yqq
+RUN apt-get update -y
 # Install dependencies to fix `curl https support error` and `elaying package configuration warning`
 RUN apt-get install -y apt-transport-https apt-utils
 
 # Install common useful packages
-RUN apt-get install -y vim less curl netcat postgresql-client mysql-client
+RUN apt-get install -y vim less curl netcat postgresql-client mysql-client redis-tools
 
-RUN apt-get update -y && apt-get install -y build-essential libssl-dev \
+#docker build was failing because of cryptography package failure wirl libssl-dev.
+#instead of libssl-dev it is not set to `libssl1.0-dev`
+RUN apt-get update -y && apt-get install -y build-essential libssl1.0-dev \
     libffi-dev python3-dev libsasl2-dev libldap2-dev libxi-dev
 
 # Install nodejs for custom build
