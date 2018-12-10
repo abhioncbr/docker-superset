@@ -14,6 +14,7 @@ Repository for building [Docker](https://www.docker.com/) container of [Apache S
 - Backend database: MySQL
 - SqlLabs query async mode: Celery
 - Task queue & query cache: Redis
+- BigQuery and Hive packages are installed.
 
 ## Superset ports
 - superset portal port: 8088
