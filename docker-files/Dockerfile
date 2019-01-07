@@ -57,7 +57,7 @@ RUN pip install -r requirements.txt
 RUN pip install -r requirements-dev.txt
 RUN pip install -e .
 
-COPY database-dependencies.txt .
+COPY docker-files/database-dependencies.txt .
 RUN pip install -r database-dependencies.txt
 
 ENV PATH=${SUPERSET_HOME}/superset/bin:$PATH \
