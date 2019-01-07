@@ -1,0 +1,18 @@
+#
+# This file is created for superset database dependencies plugins
+#
+mysqlclient==1.3.13	                # MySQL         mysql://
+cx_Oracle==7.0.0	                # Oracle        oracle://
+snowflake-sqlalchemy==1.1.6	        # Snowflake     snowflake://
+sqlalchemy-redshift==0.7.2	        # Redshift      redshift+psycopg2://
+pymssql==2.1.4	                    # MSSQL	        mssql://
+impyla==0.14.1	                    # Impala	    impala://
+PyAthenaJDBC==2.0.1	                # Athena	    awsathena+jdbc://
+PyAthena==1.4.4	                    # Athena	    awsathena+rest://
+sqlalchemy-vertica-python==0.4.3	# Vertica	    vertica+vertica_python://
+sqlalchemy-clickhouse==0.1.5.post0	# ClickHouse    clickhouse://
+kylinpy==2.1.2	                    # Kylin	        kylin://
+pybigquery==0.4.8	                # BigQuery	    bigquery://
+sqlalchemy-teradata==0.9.0.dev0	    # Teradata	    teradata://
+psycopg2==2.7.6.1	                # Postgres, Greenplum       postgresql+psycopg2://
+PyHive==0.6.1	                    # Presto  presto://, Hive    hive://, SparkSQL    jdbc+hive://
