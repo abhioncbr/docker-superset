@@ -14,7 +14,7 @@ Repository for building [Docker](https://www.docker.com/) container of [Apache S
 - Backend database: MySQL
 - SqlLabs query async mode: Celery
 - Task queue & query cache: Redis
-- BigQuery and Hive packages are installed.
+- Image contains all [database plugin dependencies](docker-files/database-dependencies.txt) 
 
 ## Superset ports
 - superset portal port: 8088
@@ -22,7 +22,7 @@ Repository for building [Docker](https://www.docker.com/) container of [Apache S
 
 ## Silent features of the docker image
 - multiple ways to start a container, i.e. either by using `docker-compose` or by using `docker run` command.
-- superset all components, i.e. web application, celery worker, celery flower UI can run in the same container or different containers.
+- superset all components, i.e. web application, celery worker, celery flower UI can run in the same container or in different containers.
 - container first run sets required database along with examples and the Fabmanager user account with credentials `username: admin & password: admin`.
 - superset config file i.e [superset_config.py](config/superset_config.py) should be mounted to the container. No need to rebuild image for changing configurations. 
 - the default configuration uses MySQL as database and Redis as a cache & celery broker.
@@ -64,8 +64,7 @@ Repository for building [Docker](https://www.docker.com/) container of [Apache S
         ```        
     * starting a superset image as a `worker` container using `docker run`:
         ```shell
-        docker run -p 5555:5555 -v config:/home/superset/config/ abhioncbr/docker-superset:<tag> cluster worker <db_url> 
-        <redis_url>
+        docker run -p 5555:5555 -v config:/home/superset/config/ abhioncbr/docker-superset:<tag> cluster worker <db_url> <redis_url>
         ```    
        
     [<img src="docker-superset_execution.png" alt="Superset">](docker-superset_execution.png)   
