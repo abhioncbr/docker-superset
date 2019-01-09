@@ -48,12 +48,13 @@ Repository for building [Docker](https://www.docker.com/) container of [Apache S
         ```shell
         docker pull abhioncbr/docker-superset
         ```    
-    or for specific superset version by providing version value    
+      or for specific superset version by providing version value    
         ```shell
         docker pull abhioncbr/docker-superset:<version-tag>
-        ```
+        ```   
     
     * Copy [superset_config.py](config/superset_config.py), [docker-compose.yml](docker-files/docker-compose.yml), and [.env](docker-files/.env) files. I am considering directory structure like below
+        ```
         docker-superset
              |_ config
              |    |_superset_config.py
@@ -62,6 +63,8 @@ Repository for building [Docker](https://www.docker.com/) container of [Apache S
              |    |_docker-compose.yml
              |    |_.env
         
+        ```   
+
     * using `docker-compose`:
         * starting a superset image as a `superset` container in a **local** mode:
             ```shell
