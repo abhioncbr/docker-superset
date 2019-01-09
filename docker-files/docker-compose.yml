@@ -1,4 +1,4 @@
-# VERSION 1.0 (apache-superset version:0.29.rc4)
+# VERSION 1.0 (apache-superset)
 # AUTHOR: Abhishek Sharma<abhioncbr@yahoo.com>
 # DESCRIPTION: apache superset docker-compose.yml
 # Modified/revamped version of the https://github.com/apache/incubator-superset/blob/master/contrib/docker/docker-compose.yml
@@ -16,26 +16,27 @@ services:
     image: mysql:5.7
     restart: always
     environment:
-      MYSQL_USER: superset
-      MYSQL_PASSWORD: superset
-      MYSQL_DATABASE: superset
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     ports:
       - 3306:3306
     volumes:
       - mysql:/var/lib/mysql
   superset:
-    image: abhioncbr/docker-superset:$SUPERSET_VERSION
+    image: abhioncbr/docker-superset:${SUPERSET_VERSION}
     restart: always
     environment:
-      MYSQL_USER: superset
-      MYSQL_PASS: superset
-      MYSQL_DATABASE: superset
-      MYSQL_HOST: mysql
-      MYSQL_PORT: 3306
-      REDIS_HOST: redis
-      REDIS_PORT: 6379
-      SUPERSET_ENV: $SUPERSET_ENV
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASS: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_HOST: ${MYSQL_HOST}
+      MYSQL_PORT: ${MYSQL_PORT}
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PORT: ${REDIS_PORT}
+      SUPERSET_ENV: ${SUPERSET_ENV}
+      GOOGLE_APPLICATION_CREDENTIALS: ${GOOGLE_APPLICATION_CREDENTIALS}
     ports:
       - 8088:8088
       - 5555:5555

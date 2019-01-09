@@ -14,20 +14,21 @@ Repository for building [Docker](https://www.docker.com/) container of [Apache S
 - Backend database: MySQL
 - SqlLabs query async mode: Celery
 - Task queue & query cache: Redis
-- BigQuery and Hive packages are installed.
+- Image contains all [database plugin dependencies](docker-files/database-dependencies.txt) 
 
 ## Superset ports
 - superset portal port: 8088
-- superset celery flower: 5555
+- superset celery flower port: 5555
 
 ## Silent features of the docker image
 - multiple ways to start a container, i.e. either by using `docker-compose` or by using `docker run` command.
-- superset all components, i.e. web application, celery worker, celery flower UI can run in the same container or different containers.
+- superset all components, i.e. web application, celery worker, celery flower UI can run in the same container or in different containers.
 - container first run sets required database along with examples and the Fabmanager user account with credentials `username: admin & password: admin`.
-- superset config file i.e [superset_config.py](config/superset_config.py) should be mounted to the container. No need to rebuild image for changing configurations. 
-- the default configuration uses MySQL as database and Redis as a cache & celery broker.
-- starting container using `docker-compose` will start three containers. `mysql5.7` as the database, `redis3.4` as a cache & celery broker and superset container.
-    * expects multiple environment variables defined in [docker-compose.yml](docker-files/docker-compose.yml) file. Among them, `SUPERSET_ENV` should be provided while starting the container.
+- superset config file i.e [superset_config.py](config/superset_config.py) should be mounted to the container. **No need to rebuild image for changing configurations.** 
+- the default configuration uses MySQL as a Superset metadata database and Redis as a cache & celery broker.
+- starting the container using `docker-compose` will start three containers. `mysql5.7` as the database, `redis3.4` as a cache & celery broker and superset container.
+    * expects multiple environment variables defined in [docker-compose.yml](docker-files/docker-compose.yml) file. Default environment variables are present in file [`.env`](docker-files/.env). 
+    * override default environment variables either by editing `.env` file or passing through commands like `SUPERSET_ENV`.
     * permissible value of `SUPERSET_ENV` can be either `local` or `prod`.
     * in `local` mode one celery worker and superset flask-based superset web application run.
     * in `prod` mode two celery workers and Gunicorn based superset web application run.
@@ -43,30 +44,51 @@ Repository for building [Docker](https://www.docker.com/) container of [Apache S
         ```
 ## How to run
 * General commands -
-    * first pull a docker-superset image from [docker-hub](https://hub.docker.com/r/abhioncbr/docker-superset/)
+    * first pull a docker-superset image from [docker-hub](https://hub.docker.com/r/abhioncbr/docker-superset/) using either
         ```shell
-        docker pull abhioncbr/docker-superset:<tag>
-        ```
-        
-    * starting a superset image as a `superset` container in a local mode using `docker-compose`:
-        ```shell
-        cd docker-files/ && SUPERSET_ENV=local SUPERSET_VERSION=<version-tag> docker-compose up -d
-        ```
-        
-    * starting a superset image as a `superset` container in a prod mode using `docker-compose`:
-        ```shell
-        cd docker-files/ && SUPERSET_ENV=prod SUPERSET_VERSION=<version-tag> docker-compose up -d
-        ```
-
-    * starting a superset image as a `server` container using `docker run`:
-        ```shell
-        docker run -p 8088:8088 -v config:/home/superset/config/ abhioncbr/docker-superset:<tag> cluster server <db_url> <redis_url>
-        ```        
-    * starting a superset image as a `worker` container using `docker run`:
-        ```shell
-        docker run -p 5555:5555 -v config:/home/superset/config/ abhioncbr/docker-superset:<tag> cluster worker <db_url> 
-        <redis_url>
+        docker pull abhioncbr/docker-superset
         ```    
+      or for specific superset version by providing version value    
+        ```shell
+        docker pull abhioncbr/docker-superset:<version-tag>
+        ```   
+    
+    * Copy [superset_config.py](config/superset_config.py), [docker-compose.yml](docker-files/docker-compose.yml), and [.env](docker-files/.env) files. I am considering directory structure like below
+        ```
+        docker-superset
+             |_ config
+             |    |_superset_config.py
+             |
+             |_docker-files
+             |    |_docker-compose.yml
+             |    |_.env
+        
+        ```   
+
+    * using `docker-compose`:
+        * starting a superset image as a `superset` container in a **local** mode:
+            ```shell
+            cd docker-superset/docker-files/ && docker-compose up -d
+            ```
+          or for passing some different environment variables values like below
+            ```shell
+            cd docker-superset/docker-files/ && SUPERSET_ENV=local SUPERSET_VERSION=<version-tag> docker-compose up -d
+            ```           
+        
+        * starting a superset image as a `superset` container in a **prod** mode:
+            ```shell
+            cd docker-superset/docker-files/ && SUPERSET_ENV=prod SUPERSET_VERSION=<version-tag> docker-compose up -d
+            ```
+            
+    * using `docker run`:    
+        * starting a superset image as a `server` container:
+            ```shell
+            cd docker-superset && docker run -p 8088:8088 -v config:/home/superset/config/ abhioncbr/docker-superset:<version-tag> cluster server <superset_metadata_db_url> <redis_url>
+            ```        
+        * starting a superset image as a `worker` container:
+            ```shell
+             cd docker-superset && docker run -p 5555:5555 -v config:/home/superset/config/ abhioncbr/docker-superset:<version-tag> cluster worker <superset_metadata_db_url> <redis_url>
+            ```    
        
     [<img src="docker-superset_execution.png" alt="Superset">](docker-superset_execution.png)   
          
