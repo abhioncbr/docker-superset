@@ -115,7 +115,7 @@ if [ "$SUPERSET_ENV" == "local" ]; then
     echo Started Celery worker and Flower UI.
 
     # Start the dev web server
-    flask run -p 8088 --with-threads --reload --debugger --host=0.0.0.0
+    FLASK_APP=superset:app flask run -p 8088 --with-threads --reload --debugger --host=0.0.0.0
 elif [ "$SUPERSET_ENV" == "prod" ]; then
     # Start superset worker for SQL Lab
     celery worker --app=superset.sql_lab:celery_app --pool=gevent -Ofair -nworker1 &
