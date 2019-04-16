@@ -70,10 +70,10 @@ echo Environment Variable: SUPERSET_ENV: $SUPERSET_ENV
 if $(is_empty_string $SUPERSET_ENV); then
     args=("$@")
     echo Provided Script Arguments: $@
-    if [[ $# -ne 4 ]]; then
-        help
-        exit -1
-    else
+    if [[ $# -eq 0 ]]; then
+        SUPERSET_ENV="local"
+        DB_URL='sqlite:////home/superset/.superset/superset.db'
+    elif [[ $# -eq 4 ]]; then
         SUPERSET_ENV=${args[0]}
         NODE_TYPE=${args[1]}
 
@@ -94,6 +94,9 @@ if $(is_empty_string $SUPERSET_ENV); then
         echo "export INVOCATION_TYPE="$INVOCATION_TYPE>>~/.bashrc
         echo "INVOCATION_TYPE="$INVOCATION_TYPE>>~/.profile
         echo Environment Variable Exported: INVOCATION_TYPE: $INVOCATION_TYPE
+    else
+        help
+       exit -1
     fi
 else
      INVOCATION_TYPE="COMPOSE"
