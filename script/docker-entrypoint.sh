@@ -72,7 +72,6 @@ if $(is_empty_string $SUPERSET_ENV); then
     echo Provided Script Arguments: $@
     if [[ $# -eq 0 ]]; then
         SUPERSET_ENV="local"
-        DB_URL='sqlite:////home/superset/.superset/superset.db'
     elif [[ $# -eq 4 ]]; then
         SUPERSET_ENV=${args[0]}
         NODE_TYPE=${args[1]}
