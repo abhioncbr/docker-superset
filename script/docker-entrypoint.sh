@@ -72,6 +72,12 @@ if $(is_empty_string $SUPERSET_ENV); then
     echo Provided Script Arguments: $@
     if [[ $# -eq 0 ]]; then
         SUPERSET_ENV="local"
+
+        INVOCATION_TYPE="OTHER"
+        export INVOCATION_TYPE=$INVOCATION_TYPE
+        echo "export INVOCATION_TYPE="$INVOCATION_TYPE>>~/.bashrc
+        echo "INVOCATION_TYPE="$INVOCATION_TYPE>>~/.profile
+        echo Environment Variable Exported: INVOCATION_TYPE: $INVOCATION_TYPE
     elif [[ $# -eq 4 ]]; then
         SUPERSET_ENV=${args[0]}
         NODE_TYPE=${args[1]}
