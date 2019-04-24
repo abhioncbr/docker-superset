@@ -16,3 +16,18 @@ pybigquery==0.4.8	                # BigQuery	    bigquery://
 sqlalchemy-teradata==0.9.0.dev0	    # Teradata	    teradata://
 psycopg2==2.7.6.1	                # Postgres, Greenplum       postgresql+psycopg2://
 PyHive==0.6.1	                    # Presto  presto://, Hive    hive://, SparkSQL    jdbc+hive://
+pinotdb==0.2.3                      # PintoDB
+
+#
+# Optional packages
+#
+flower==0.9.2
+tornado==5.1.1            # via flower
+thrift-sasl==0.3.0
+thrift==0.11.0
+sasl==0.2.1               # via thrift-sasl
+boto3==1.4.7
+botocore==1.7.48
+docutils==0.14            # via botocore
+jmespath==0.9.3           # via boto3, botocore
+s3transfer==0.1.13        # via boto3
