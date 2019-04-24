@@ -45,7 +45,7 @@ Repository for building [Docker](https://www.docker.com/) container of [Apache S
         ```shell
         docker build -t abhioncbr/docker-superset:<version-tag> --build-arg SUPERSET_VERSION=<superset-version> -f ~/docker-superset/docker-files/Dockerfile .
         ```
-## How to run
+## How to run using Kitmatic
 * Simplest way for exploration purpose, using [Kitematic](https://kitematic.com)(Run containers through a simple, yet powerful graphical user interface.) 
     * Search abhioncbr/docker-superset Image on [docker-hub](https://hub.docker.com/r/abhioncbr/docker-superset/) 
         [<img src="Kitematic-search-docker-supeset.png" alt="Kitematic-search-docker-supeset">](Kitematic-search-docker-supeset.png)
@@ -53,6 +53,7 @@ Repository for building [Docker](https://www.docker.com/) container of [Apache S
     * Start a container through Kitematic UI.
         [<img src="Kitematic-start-superset-container.png" alt="Kitematic-start-superset-container">](Kitematic-start-superset-container.png)    
 
+## How to run using docker commands
 * Through general docker commands -
     * first pull a docker-superset image from [docker-hub](https://hub.docker.com/r/abhioncbr/docker-superset/) using either
         ```shell
