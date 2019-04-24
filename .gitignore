@@ -5,3 +5,4 @@ project/project/target
 .idea
 venv
 .DS_Store
+__pycache__/
