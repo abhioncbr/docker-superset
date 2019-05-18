@@ -8,6 +8,12 @@ Repository for building [Docker](https://www.docker.com/) container of [Apache S
 * For understanding & knowing more about Superset, please follow [Official website]((https://superset.incubator.apache.org/tutorial.html)) and [![Join the chat at https://gitter.im/airbnb/superset](https://badges.gitter.im/apache/incubator-superset.svg)](https://gitter.im/airbnb/superset?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 * Similarly, for Docker follow [curated list of resources](https://github.com/veggiemonk/awesome-docker).
 
+## Images
+
+|Image|Pulls|Tags|
+|:---|:---:|:---:|
+|abhioncbr/docker-superset|[![Docker Pulls](https://img.shields.io/docker/pulls/abhioncbr/docker-superset.svg)](https://cloud.docker.com/u/abhioncbr/repository/docker/abhioncbr/docker-superset)|[tags](https://cloud.docker.com/repository/docker/abhioncbr/docker-superset/tags)|
+
 ## Superset components stack
 - Enhanced/Modified version of the docker container of [apache-superset](https://github.com/apache/incubator-superset/tree/master/contrib/docker).
 - Superset version: Notation for representing version `X.YY.ZZzzz` which means either 
