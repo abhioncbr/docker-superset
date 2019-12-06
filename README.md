@@ -8,6 +8,7 @@ Repository for building [Docker](https://www.docker.com/) container of [Apache S
 [![CircleCI](https://circleci.com/gh/abhioncbr/docker-superset/tree/master.svg?style=svg)](https://circleci.com/gh/abhioncbr/docker-superset/tree/master)
 [![License](http://img.shields.io/:license-Apache%202-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.txt)
 [![Code Climate](https://codeclimate.com/github/codeclimate/codeclimate/badges/gpa.svg)](https://codeclimate.com/github/abhioncbr/docker-superset)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
 * For understanding & knowing more about Superset, please follow [Official website]((https://superset.incubator.apache.org/tutorial.html)) and [![Join the chat at https://gitter.im/airbnb/superset](https://badges.gitter.im/apache/incubator-superset.svg)](https://gitter.im/airbnb/superset?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 * Similarly, for Docker follow [curated list of resources](https://github.com/veggiemonk/awesome-docker).
