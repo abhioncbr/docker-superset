@@ -78,7 +78,7 @@ RUN chown -R superset:superset $SUPERSET_HOME
 USER superset
 
 RUN cd superset/assets && yarn
-RUN cd superset/superset-frontend && npm ci && npm run build && rm -rf node_modules
+RUN cd superset-frontend && npm ci && npm run build && rm -rf node_modules
 
 HEALTHCHECK CMD ["curl", "-f", "http://localhost:8088/health"]
 ENTRYPOINT ["docker-entrypoint.sh"]
