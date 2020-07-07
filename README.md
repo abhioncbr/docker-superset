@@ -22,6 +22,8 @@ Repository for building [Docker](https://www.docker.com/) container of [Apache S
 ## Superset components stack
 - Enhanced/Modified version of the docker container of [apache-superset](https://github.com/apache/incubator-superset/tree/master/contrib/docker).
 - Superset version: Notation for representing version `X.YY.ZZzzz` which means either 
+    * 0.36.0
+    * 0.35.0, 0.35.1
     * 0.34.0, 0.34.0rc1  
     * latest, 0.32.0rc2
     * 0.29.0rc8, 0.29.0rc7, 0.29.0rc5, 0.29.0rc4  
@@ -29,7 +31,7 @@ Repository for building [Docker](https://www.docker.com/) container of [Apache S
 - Backend database: MySQL
 - SqlLabs query async mode: Celery
 - Task queue & query cache: Redis
-- Image contains all [database plugin dependencies](docker-files/database-dependencies.txt) 
+- Image contains all [database plugin dependencies](docker-files/database-dependencies.txt) and elastic-search
 
 ## Superset ports
 - superset portal port: 8088
