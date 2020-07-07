@@ -17,7 +17,10 @@ sqlalchemy-teradata==0.9.0.dev0	    # Teradata	    teradata://
 psycopg2==2.7.6.1	                # Postgres, Greenplum       postgresql+psycopg2://
 PyHive==0.6.1	                    # Presto  presto://, Hive    hive://, SparkSQL    jdbc+hive://
 pinotdb==0.2.3                      # PintoDB
-
+elasticsearch-dbapi==0.1.2
+gsheetsdb==0.1.9
+cockroachdb==0.3.3
+pydruid==0.5.9
 #
 # Optional packages
 #
