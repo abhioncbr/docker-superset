@@ -1,0 +1,10 @@
+commonLabels:
+  app: superset
+namespace: abhioncbr
+resources:
+- superset-deployment.yaml
+configMapGenerator:
+- name: superset-config
+  namespace: abhioncbr-superset
+  files:
+  - ../../../config/superset_config.py

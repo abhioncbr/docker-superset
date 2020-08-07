@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: superset
+  labels:
+    app: superset
+    tier: superset  
+spec:
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: 8088
+  selector:
+    app: superset
+    tier: superset
+  clusterIP: ClusterIP
+---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: superset-deployment
+spec:
+  selector:
+    matchLabels:
+      app: superset
+      tier: superset
+  template:
+    metadata:
+      labels:
+        app: superset
+        tier: superset         
+    spec:
+      containers:
+      - env:
+        - name: INVOCATION_TYPE
+          value: "OTHER"
+        image: abhioncbr/docker-superset:latest
+        name: superset
+        ports:
+        - containerPort: 8088
+        volumeMounts:
+        - mountPath: /home/superset/superset/config
+          name: superset-config
+      volumes:
+      - name: superset-config
+        configMap:
+          name: superset-config  
