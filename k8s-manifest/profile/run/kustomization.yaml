@@ -2,7 +2,7 @@ commonLabels:
   app: superset
 namespace: abhioncbr
 resources:
-- superset-deployment.yaml
+- ../../base/superset-deployment.yaml
 configMapGenerator:
 - name: superset-config
   namespace: abhioncbr-superset
