@@ -1,0 +1,2 @@
+deploy:
+  - kubectl apply -k k8s-manifest/profile/other
