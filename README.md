@@ -1,4 +1,4 @@
-# Inviting contributors for enhancing & maintaing the project. 
+# Inviting contributors for enhancing & maintaining the project. 
 
 # docker-superset
 Repository for building [Docker](https://www.docker.com/) container of [Apache Superset](https://superset.incubator.apache.org/tutorial.html).
